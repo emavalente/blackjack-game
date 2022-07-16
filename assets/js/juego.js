@@ -40,7 +40,7 @@ const createDeck = () => {
     };
 
     deck = _.shuffle(deck);
-
+    console.log(deck);
 };
 
 createDeck();
@@ -98,16 +98,42 @@ const turnComputer = (minPoints) => {
         };
 
     } while (computerScore < minPoints && (minPoints <= 21));
+
+
+    setTimeout(() => {
+        if (computerScore === minPoints) {
+            alert('Nadie Gana :( , Empate!!');
+        } else if (minPoints > 21) {
+            alert('Lo siento, Perdiste...Computadora Gana!');
+        } else if (minPoints === 21) {
+            alert('21 Muy Bien, Ganaste!!');
+        } else if (minPoints < 21 && computerScore > 21) {
+            alert('Bien Pensado, Ganaste!!');
+        } else if (computerScore <= 21 && minPoints < 21) {
+            alert('Lo siento, Perdiste...Computadora Gana!');
+        };
+
+        btnNew.disabled = false;
+        btnStop.disabled = true;
+    }, 250);
+
+
+
 };
 
-
+// Function to reset the game.
 const newGame = () => {
+    console.clear;
+    deck = [];
+    createDeck();
     playerScore = 0;
     computerScore = 0;
     btnTake.disabled = false;
     btnStop.disabled = false;
     showScore[0].innerText = 0;
     showScore[1].innerText = 0;
+    computerCards.innerHTML = '';
+    playerCards.innerHTML = '';
 
 };
 
@@ -164,4 +190,5 @@ btnStop.addEventListener('click', () => {
 btnNew.addEventListener('click', () => {
     newGame();
 });
+
 
